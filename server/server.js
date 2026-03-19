@@ -1,3 +1,4 @@
+import MongoStore from "connect-mongo";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
@@ -22,11 +23,15 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      collectionName: "app_sessions",
+    }),
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: false, // set to true in production with HTTPS
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     },
   }),
 );
@@ -71,3 +76,5 @@ connectDB().then(() => {
     console.log(`SkillSwap server running on port ${PORT}`);
   });
 });
+
+export default app;
