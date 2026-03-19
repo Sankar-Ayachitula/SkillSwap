@@ -13,9 +13,8 @@ import isAuthenticated from "../middleware/auth.js";
 
 const router = Router();
 
-// ──────────────────────────────────────────────
 // POST /api/skills — Create a new skill listing
-// ──────────────────────────────────────────────
+
 router.post("/", isAuthenticated, async (req, res) => {
   try {
     const errors = validateSkill(req.body);
@@ -33,9 +32,8 @@ router.post("/", isAuthenticated, async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // GET /api/skills — Get all skills (with search & filter)
-// ──────────────────────────────────────────────
+
 router.get("/", async (req, res) => {
   try {
     const { category, format, experienceLevel, search } = req.query;
@@ -46,9 +44,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // GET /api/skills/stats — Skill statistics
-// ──────────────────────────────────────────────
+
 router.get("/stats", async (req, res) => {
   try {
     const stats = await getStats();
@@ -58,9 +55,8 @@ router.get("/stats", async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // GET /api/skills/my — Get logged-in user's skills
-// ──────────────────────────────────────────────
+
 router.get("/my", isAuthenticated, async (req, res) => {
   try {
     const skills = await findByUserId(req.user._id);
@@ -70,9 +66,8 @@ router.get("/my", isAuthenticated, async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // GET /api/skills/:id — Get a single skill
-// ──────────────────────────────────────────────
+
 router.get("/:id", async (req, res) => {
   try {
     const skill = await findById(req.params.id);
@@ -83,9 +78,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // PUT /api/skills/:id — Update a skill (owner only)
-// ──────────────────────────────────────────────
+
 router.put("/:id", isAuthenticated, async (req, res) => {
   try {
     const skill = await findById(req.params.id);
@@ -119,9 +113,8 @@ router.put("/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────
 // DELETE /api/skills/:id — Delete a skill (owner only)
-// ──────────────────────────────────────────────
+
 router.delete("/:id", isAuthenticated, async (req, res) => {
   try {
     const skill = await findById(req.params.id);
