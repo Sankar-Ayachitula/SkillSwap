@@ -1,72 +1,103 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import { ObjectId } from "mongodb";
+import bcrypt from "bcryptjs";
+import { getDB } from "../config/db.js";
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Name is required"],
-      trim: true,
-      minlength: [2, "Name must be at least 2 characters"],
-      maxlength: [50, "Name cannot exceed 50 characters"],
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      lowercase: true,
-      trim: true,
-      match: [/^\S+@\S+\.\S+$/, "Please provide a valid email"],
-    },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters"],
-      select: false, // exclude from queries by default
-    },
-    bio: {
-      type: String,
-      default: "",
-      maxlength: [500, "Bio cannot exceed 500 characters"],
-    },
-    hoursTeaught: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-    hoursReceived: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-    overallRating: {
-      type: Number,
-      default: 0,
-      min: 0,
-      max: 5,
-    },
-    totalRatings: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-  },
-  {
-    timestamps: true,
+const COLLECTION = "users";
+
+// Validation schema
+const validateUser = (data, isUpdate = false) => {
+  const errors = [];
+
+  if (!isUpdate) {
+    if (!data.name || data.name.trim().length < 2)
+      errors.push("Name must be at least 2 characters");
+    if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email))
+      errors.push("Valid email is required");
+    if (!data.password || data.password.length < 6)
+      errors.push("Password must be at least 6 characters");
+  } else {
+    if (data.name !== undefined && data.name.trim().length < 2)
+      errors.push("Name must be at least 2 characters");
+    if (data.bio !== undefined && data.bio.length > 500)
+      errors.push("Bio cannot exceed 500 characters");
   }
-);
 
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
-
-// Compare entered password with hashed password
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return errors;
 };
 
-module.exports = mongoose.model("User", userSchema);
+// Create a new user document
+const createUser = async (data) => {
+  const db = getDB();
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(data.password, salt);
+
+  const user = {
+    name: data.name.trim(),
+    email: data.email.toLowerCase().trim(),
+    password: hashedPassword,
+    bio: data.bio || "",
+    hoursTeaught: 0,
+    hoursReceived: 0,
+    overallRating: 0,
+    totalRatings: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const result = await db.collection(COLLECTION).insertOne(user);
+  const { password, ...userWithoutPassword } = user;
+  return { ...userWithoutPassword, _id: result.insertedId };
+};
+
+// Find user by email (includes password for auth)
+const findByEmail = async (email) => {
+  const db = getDB();
+  return db.collection(COLLECTION).findOne({ email: email.toLowerCase() });
+};
+
+// Find user by ID (excludes password)
+const findById = async (id) => {
+  const db = getDB();
+  return db
+    .collection(COLLECTION)
+    .findOne({ _id: new ObjectId(id) }, { projection: { password: 0 } });
+};
+
+// Get all users (excludes password)
+const findAll = async () => {
+  const db = getDB();
+  return db
+    .collection(COLLECTION)
+    .find({}, { projection: { password: 0 } })
+    .toArray();
+};
+
+// Update user
+const updateUser = async (id, updates) => {
+  const db = getDB();
+  updates.updatedAt = new Date();
+  const result = await db
+    .collection(COLLECTION)
+    .findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: updates },
+      { returnDocument: "after", projection: { password: 0 } },
+    );
+  return result;
+};
+
+// Delete user
+const deleteUser = async (id) => {
+  const db = getDB();
+  return db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
+};
+
+export {
+  validateUser,
+  createUser,
+  findByEmail,
+  findById,
+  findAll,
+  updateUser,
+  deleteUser,
+};

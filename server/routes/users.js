@@ -1,93 +1,75 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const auth = require("../middleware/auth");
+import { Router } from "express";
+import passport from "passport";
+import {
+  validateUser,
+  createUser,
+  findById,
+  findAll,
+  updateUser,
+  deleteUser,
+} from "../models/User.js";
+import isAuthenticated from "../middleware/auth.js";
 
-const router = express.Router();
-
-// Helper: generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-};
+const router = Router();
 
 // ──────────────────────────────────────────────
 // POST /api/users/register — Create a new user
 // ──────────────────────────────────────────────
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password, bio } = req.body;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: "Email already registered" });
+    const errors = validateUser(req.body);
+    if (errors.length > 0) {
+      return res.status(400).json({ error: errors.join(", ") });
     }
 
-    const user = await User.create({ name, email, password, bio });
-    const token = generateToken(user._id);
+    const user = await createUser(req.body);
 
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      bio: user.bio,
-      hoursTeaught: user.hoursTeaught,
-      hoursReceived: user.hoursReceived,
-      overallRating: user.overallRating,
-      token,
+    // Auto-login after registration
+    req.login(user, (err) => {
+      if (err) return res.status(500).json({ error: "Login after registration failed" });
+      return res.status(201).json(user);
     });
   } catch (error) {
-    if (error.name === "ValidationError") {
-      const messages = Object.values(error.errors).map((e) => e.message);
-      return res.status(400).json({ error: messages.join(", ") });
+    if (error.code === 11000) {
+      return res.status(400).json({ error: "Email already registered" });
     }
     res.status(500).json({ error: "Server error" });
   }
 });
 
 // ──────────────────────────────────────────────
-// POST /api/users/login — Authenticate user
+// POST /api/users/login — Authenticate with Passport
 // ──────────────────────────────────────────────
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return res.status(500).json({ error: "Server error" });
+    if (!user) return res.status(401).json({ error: info?.message || "Invalid credentials" });
 
-    if (!email || !password) {
-      return res.status(400).json({ error: "Please provide email and password" });
-    }
+    req.login(user, (loginErr) => {
+      if (loginErr) return res.status(500).json({ error: "Login failed" });
 
-    const user = await User.findOne({ email }).select("+password");
-    if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const token = generateToken(user._id);
-
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      bio: user.bio,
-      hoursTeaught: user.hoursTeaught,
-      hoursReceived: user.hoursReceived,
-      overallRating: user.overallRating,
-      token,
+      const { password, ...userWithoutPassword } = user;
+      return res.json(userWithoutPassword);
     });
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
-  }
+  })(req, res, next);
+});
+
+// ──────────────────────────────────────────────
+// POST /api/users/logout — End session
+// ──────────────────────────────────────────────
+router.post("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return res.status(500).json({ error: "Logout failed" });
+    res.json({ message: "Logged out successfully" });
+  });
 });
 
 // ──────────────────────────────────────────────
 // GET /api/users/me — Get logged-in user profile
 // ──────────────────────────────────────────────
-router.get("/me", auth, async (req, res) => {
+router.get("/me", isAuthenticated, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await findById(req.user._id);
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
@@ -99,7 +81,7 @@ router.get("/me", auth, async (req, res) => {
 // ──────────────────────────────────────────────
 router.get("/", async (req, res) => {
   try {
-    const users = await User.find().select("-__v");
+    const users = await findAll();
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
@@ -111,40 +93,31 @@ router.get("/", async (req, res) => {
 // ──────────────────────────────────────────────
 router.get("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select("-__v");
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    const user = await findById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
     res.json(user);
   } catch (error) {
-    if (error.kind === "ObjectId") {
-      return res.status(400).json({ error: "Invalid user ID" });
-    }
-    res.status(500).json({ error: "Server error" });
+    res.status(400).json({ error: "Invalid user ID" });
   }
 });
 
 // ──────────────────────────────────────────────
 // PUT /api/users/me — Update logged-in user profile
 // ──────────────────────────────────────────────
-router.put("/me", auth, async (req, res) => {
+router.put("/me", isAuthenticated, async (req, res) => {
   try {
-    const { name, bio } = req.body;
+    const errors = validateUser(req.body, true);
+    if (errors.length > 0) {
+      return res.status(400).json({ error: errors.join(", ") });
+    }
+
     const updates = {};
-    if (name !== undefined) updates.name = name;
-    if (bio !== undefined) updates.bio = bio;
+    if (req.body.name !== undefined) updates.name = req.body.name.trim();
+    if (req.body.bio !== undefined) updates.bio = req.body.bio;
 
-    const user = await User.findByIdAndUpdate(req.user._id, updates, {
-      new: true,
-      runValidators: true,
-    });
-
+    const user = await updateUser(req.user._id, updates);
     res.json(user);
   } catch (error) {
-    if (error.name === "ValidationError") {
-      const messages = Object.values(error.errors).map((e) => e.message);
-      return res.status(400).json({ error: messages.join(", ") });
-    }
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -152,13 +125,16 @@ router.put("/me", auth, async (req, res) => {
 // ──────────────────────────────────────────────
 // DELETE /api/users/me — Delete logged-in user account
 // ──────────────────────────────────────────────
-router.delete("/me", auth, async (req, res) => {
+router.delete("/me", isAuthenticated, async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.user._id);
-    res.json({ message: "Account deleted successfully" });
+    await deleteUser(req.user._id);
+    req.logout((err) => {
+      if (err) return res.status(500).json({ error: "Error during logout" });
+      res.json({ message: "Account deleted successfully" });
+    });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,17 +1,37 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import session from "express-session";
+import passport from "passport";
+import "dotenv/config";
 
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/users");
-const skillRoutes = require("./routes/skills");
-const sessionRoutes = require("./routes/sessions");
+import { connectDB } from "./config/db.js";
+import configurePassport from "./config/passport.js";
+import corsMiddleware from "./middleware/cors.js";
+import userRoutes from "./routes/users.js";
+import skillRoutes from "./routes/skills.js";
+import sessionRoutes from "./routes/sessions.js";
 
 const app = express();
 
 // ── Middleware ────────────────────────────────
-app.use(cors());
+app.use(corsMiddleware);
 app.use(express.json());
+
+// ── Session + Passport ───────────────────────
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true,
+      secure: false, // set to true in production with HTTPS
+      sameSite: "lax",
+    },
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ── Routes ───────────────────────────────────
 app.use("/api/users", userRoutes);
@@ -22,7 +42,7 @@ app.use("/api/sessions", sessionRoutes);
 app.get("/", (req, res) => {
   res.json({
     message: "SkillSwap API is running",
-    version: "1.0.0",
+    version: "2.0.0",
     endpoints: {
       users: "/api/users",
       skills: "/api/skills",
@@ -46,6 +66,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 connectDB().then(() => {
+  configurePassport();
   app.listen(PORT, () => {
     console.log(`SkillSwap server running on port ${PORT}`);
   });
