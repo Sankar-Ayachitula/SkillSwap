@@ -9,6 +9,12 @@ import {
   deleteUser,
 } from "../models/User.js";
 import isAuthenticated from "../middleware/auth.js";
+import jwt from "jsonwebtoken";
+
+// Add this after the router declaration
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.SESSION_SECRET, { expiresIn: "7d" });
+};
 
 const router = Router();
 
@@ -26,9 +32,8 @@ router.post("/register", async (req, res) => {
 
     // Auto-login after registration
     req.login(user, (err) => {
-      if (err) return res.status(500).json({ error: "Login after registration failed" });
-      return res.status(201).json(user);
-    });
+      return res.status(201).json({ ...user, token: generateToken(user._id) });
+  });
   } catch (error) {
     if (error.code === 11000) {
       return res.status(400).json({ error: "Email already registered" });
@@ -46,11 +51,9 @@ router.post("/login", (req, res, next) => {
     if (!user) return res.status(401).json({ error: info?.message || "Invalid credentials" });
 
     req.login(user, (loginErr) => {
-      if (loginErr) return res.status(500).json({ error: "Login failed" });
-
-      const { password, ...userWithoutPassword } = user;
-      return res.json(userWithoutPassword);
-    });
+  const { password, ...userWithoutPassword } = user;
+  return res.json({ ...userWithoutPassword, token: generateToken(user._id) });
+});
   })(req, res, next);
 });
 
