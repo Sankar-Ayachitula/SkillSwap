@@ -49,7 +49,7 @@ The project emphasizes clean REST API design, modular code structure, session-ba
 
 ## Design Document
 
-_(Add link to design document here)_
+View the design document for this project: [Design_document.pdf](https://drive.google.com/file/d/1mwkSGlL4d59J-dZnnddu7MBeKx0MFNpV/view)
 
 ### Screenshots:
 
