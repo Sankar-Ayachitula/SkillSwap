@@ -53,7 +53,8 @@ _(Add link to design document here)_
 
 ### Screenshots:
 
-_(Add screenshots of the running application here)_
+<img width="947" height="534" alt="image" src="https://github.com/user-attachments/assets/c892a9a2-23b3-4bd5-8f30-b5762e34eae2" />
+
 
 ---
 
