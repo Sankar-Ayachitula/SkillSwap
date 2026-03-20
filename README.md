@@ -208,6 +208,11 @@ Run `npm run seed` from the `server/` directory to generate **1,100+ synthetic r
 - 100 users with realistic names and bios
 - 500 skills across 11 categories
 - 500 sessions in various statuses with feedback
+- <img width="1280" height="675" alt="image" src="https://github.com/user-attachments/assets/37c8564c-ba50-44bb-bf92-02ba06819b8e" />
+- <img width="1280" height="480" alt="image" src="https://github.com/user-attachments/assets/89209d5e-ccd6-4eeb-8d53-5afa0356bd0e" />
+- <img width="1600" height="686" alt="image" src="https://github.com/user-attachments/assets/ef99603a-477a-4cac-bf2b-34ceecc8b445" />
+
+
 
 All test users share the password: `password123`
 
