@@ -1,7 +1,8 @@
 const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
-    "http://localhost:5173",
-    "http://localhost:3000",
+    // "http://localhost:5173",
+    // "http://localhost:3000",
+    "https://skillswapfrontend-seven.vercel.app/"
   ];
 
   const origin = req.headers.origin;
