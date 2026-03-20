@@ -1,0 +1,58 @@
+.browse-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+
+.browse-page h1 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.browse-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.browse-filters input,
+.browse-filters select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+.browse-filters input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.browse-filters input:focus,
+.browse-filters select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.browse-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.browse-loading {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-tertiary);
+}

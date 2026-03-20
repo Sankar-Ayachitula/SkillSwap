@@ -1,0 +1,183 @@
+.session-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: box-shadow 0.15s;
+}
+
+.session-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.session-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.session-card-skills {
+  flex: 1;
+}
+
+.session-card-swap {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.session-card-swap strong {
+  font-weight: 600;
+}
+
+.session-card-arrow {
+  color: var(--text-tertiary);
+  margin: 0 6px;
+}
+
+.session-card-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.session-status-pending {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.session-status-accepted {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.session-status-completed {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.session-status-declined,
+.session-status-cancelled {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.session-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.session-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.session-card-people {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.session-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.session-card-actions button {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+}
+
+.session-btn-accept {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.session-btn-accept:hover {
+  background: #dcfce7;
+}
+
+.session-btn-decline {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.session-btn-decline:hover {
+  background: #fee2e2;
+}
+
+.session-btn-cancel {
+  background: var(--accent-subtle);
+  color: var(--text-secondary);
+}
+
+.session-btn-cancel:hover {
+  background: var(--border);
+}
+
+.session-btn-complete {
+  background: var(--accent);
+  color: #fff;
+}
+
+.session-btn-complete:hover {
+  background: var(--accent-light);
+}
+
+.session-btn-delete {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.session-btn-delete:hover {
+  background: #fee2e2;
+}
+
+.session-btn-feedback {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.session-btn-feedback:hover {
+  background: #dbeafe;
+}
+
+.session-card-feedback {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.session-card-feedback h4 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.session-feedback-item {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.session-feedback-item strong {
+  color: var(--text-primary);
+}

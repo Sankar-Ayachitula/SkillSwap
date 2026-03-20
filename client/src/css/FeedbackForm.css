@@ -1,0 +1,115 @@
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.feedback-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.feedback-form h2 {
+  font-size: 1.15rem;
+  margin-bottom: 20px;
+}
+
+.feedback-field {
+  margin-bottom: 14px;
+}
+
+.feedback-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.feedback-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.feedback-star {
+  font-size: 1.5rem;
+  color: var(--border);
+  transition: color 0.1s;
+  padding: 0;
+  line-height: 1;
+}
+
+.feedback-star.active {
+  color: var(--warning);
+}
+
+.feedback-star:hover {
+  color: var(--warning);
+}
+
+.feedback-field textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  resize: vertical;
+  min-height: 70px;
+}
+
+.feedback-field textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.feedback-actions button {
+  flex: 1;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.feedback-btn-cancel {
+  background: var(--accent-subtle);
+  color: var(--text-primary);
+}
+
+.feedback-btn-submit {
+  background: var(--accent);
+  color: #fff;
+}
+
+.feedback-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}

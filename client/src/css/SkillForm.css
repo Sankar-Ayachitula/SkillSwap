@@ -1,0 +1,113 @@
+.skill-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.skill-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.skill-form h2 {
+  font-size: 1.15rem;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.skill-form-field {
+  margin-bottom: 14px;
+}
+
+.skill-form-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.skill-form-field input,
+.skill-form-field select,
+.skill-form-field textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  transition: border-color 0.15s;
+}
+
+.skill-form-field input:focus,
+.skill-form-field select:focus,
+.skill-form-field textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.skill-form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.skill-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.skill-form-actions button {
+  flex: 1;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.skill-form-btn-save {
+  background: var(--accent);
+  color: #fff;
+}
+
+.skill-form-btn-save:hover {
+  background: var(--accent-light);
+}
+
+.skill-form-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.skill-form-btn-cancel {
+  background: var(--accent-subtle);
+  color: var(--text-primary);
+}
+
+.skill-form-btn-cancel:hover {
+  background: var(--border);
+}
+
+.skill-form-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}

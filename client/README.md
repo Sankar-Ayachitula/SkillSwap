@@ -1,16 +1,52 @@
-# React + Vite
+# SkillSwap - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Author
 
-Currently, two official plugins are available:
+Mohammed Armaan and Sankar A
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Class Link
 
-## React Compiler
+CS 5610 - Web Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Objective
 
-## Expanding the ESLint configuration
+SkillSwap is a peer-to-peer skill exchange platform where users can list skills they can teach, browse skills offered by others, and propose swap sessions. Each swap involves two people teaching each other something in return. The app supports full session lifecycle management including proposing, accepting, declining, completing, and leaving feedback.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshot
+
+_(Add a screenshot of the running application here)_
+
+## How to Use
+
+1. **Register** an account or **log in** with an existing one.
+2. Go to **My Skills** to add skills you can teach (title, category, level, format).
+3. Go to **Browse** to search and filter skills offered by other users.
+4. Click **Propose swap** on any skill to send a session request, choosing one of your own skills to offer in return, a date, duration, and format.
+5. Go to **Sessions** to manage your incoming and outgoing swap proposals. You can accept, decline, cancel, mark complete, or delete sessions.
+6. After a session is completed, **leave feedback** with a 1-5 star rating and optional comment.
+7. Visit **Profile** to update your name and bio, view your stats, or delete your account.
+
+## Instructions to Build
+
+```bash
+# Install dependencies
+npm install
+
+# Start the dev server (make sure the backend is running on port 3000)
+npm run dev
+
+# Lint
+npm run lint
+
+# Format
+npm run format
+
+# Build for production
+npm run build
+```
+
+The dev server proxies `/api` requests to `http://localhost:3000`. For production, set `VITE_API_URL` to your deployed backend URL.
+
+## License
+
+MIT

@@ -1,0 +1,116 @@
+.swap-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.swap-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.swap-form h2 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.swap-form-target {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.swap-form-field {
+  margin-bottom: 14px;
+}
+
+.swap-form-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.swap-form-field input,
+.swap-form-field select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  transition: border-color 0.15s;
+}
+
+.swap-form-field input:focus,
+.swap-form-field select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.swap-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.swap-form-actions button {
+  flex: 1;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.swap-form-btn-cancel {
+  background: var(--accent-subtle);
+  color: var(--text-primary);
+}
+
+.swap-form-btn-cancel:hover {
+  background: var(--border);
+}
+
+.swap-form-btn-send {
+  background: var(--accent);
+  color: #fff;
+}
+
+.swap-form-btn-send:hover {
+  background: var(--accent-light);
+}
+
+.swap-form-btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.swap-form-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.swap-form-empty {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 16px 0;
+}

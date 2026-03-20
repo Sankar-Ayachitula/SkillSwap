@@ -1,0 +1,51 @@
+.sessions-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+
+.sessions-page h1 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.sessions-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.sessions-filters select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+.sessions-filters select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sessions-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.sessions-loading {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-tertiary);
+}
