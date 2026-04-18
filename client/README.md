@@ -1,16 +1,20 @@
 # SkillSwap - Client
+**Teach What You Know. Learn What You Need.**
+
+A peer-to-peer skill barter platform where students exchange skills instead of paying for lessons.
 
 ## Author
 
-Mohammed Armaan and Sankar A
+Mohammed Armaan and Sankar Ayachitula
 
 ## Class Link
 
-CS 5610 - Web Development
+CS 5610 - Web Development, Northeastern University
+
 
 ## Project Objective
 
-SkillSwap is a peer-to-peer skill exchange platform where users can list skills they can teach, browse skills offered by others, and propose swap sessions. Each swap involves two people teaching each other something in return. The app supports full session lifecycle management including proposing, accepting, declining, completing, and leaving feedback.
+SkillSwap connects people who want to learn with people who want to teach — without money changing hands. Post a skill you can teach, browse what others offer, propose a swap, and meet up. You teach me guitar, I teach you Python. Every session gets logged, every hour tracked, every partner rated, building trust through accountability.
 
 ## Screenshot
 

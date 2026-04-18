@@ -1,5 +1,4 @@
-# SkillSwap Backend API
-
+# SkillSwap - Server
 **Teach What You Know. Learn What You Need.**
 
 A peer-to-peer skill barter platform where students exchange skills instead of paying for lessons.
