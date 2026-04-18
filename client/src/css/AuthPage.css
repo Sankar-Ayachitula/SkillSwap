@@ -2,9 +2,74 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 48px;
   min-height: 100vh;
   padding: 24px;
+  max-width: 860px;
+  margin: 0 auto;
 }
+
+/* ── Left: Branding & Description ─────────── */
+
+.auth-hero {
+  flex: 1;
+  max-width: 380px;
+}
+
+.auth-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.auth-brand span {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.auth-tagline {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.auth-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.auth-features {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-features li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.auth-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── Right: Form Card ─────────────────────── */
 
 .auth-card {
   width: 100%;
@@ -14,15 +79,16 @@
   border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: var(--shadow);
+  flex-shrink: 0;
 }
 
-.auth-card h1 {
+.auth-card h2 {
   font-size: 1.4rem;
   margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
 
-.auth-card p {
+.auth-card > p {
   color: var(--text-secondary);
   font-size: 0.9rem;
   margin-bottom: 24px;
@@ -99,4 +165,27 @@
   border-radius: var(--radius);
   font-size: 0.85rem;
   margin-bottom: 16px;
+}
+
+/* ── Responsive: Stack on mobile ──────────── */
+
+@media (max-width: 720px) {
+  .auth-page {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 20px;
+  }
+
+  .auth-hero {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .auth-features li {
+    text-align: left;
+  }
+
+  .auth-card {
+    max-width: 100%;
+  }
 }

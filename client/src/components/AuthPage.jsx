@@ -37,8 +37,26 @@ export default function AuthPage({ onSuccess }) {
 
   return (
     <section className="auth-page" aria-label="Authentication">
+      <div className="auth-hero">
+        <h1 className="auth-brand">
+          Skill<span>Swap</span>
+        </h1>
+        <p className="auth-tagline">
+          Teach what you know. Learn what you need.
+        </p>
+        <p className="auth-description">
+          A peer-to-peer skill exchange platform for students. Post a skill you
+          can teach, browse what others offer, propose a swap, and meet up.
+        </p>
+        <ul className="auth-features">
+          <li>Exchange skills instead of paying for lessons</li>
+          <li>Find students with complementary expertise</li>
+          <li>Schedule sessions and track your hours</li>
+          <li>Rate and review your swap partners</li>
+        </ul>
+      </div>
       <div className="auth-card">
-        <h1>{isLogin ? "Welcome back" : "Create account"}</h1>
+        <h2>{isLogin ? "Welcome back" : "Create account"}</h2>
         <p>
           {isLogin
             ? "Sign in to continue to SkillSwap."
