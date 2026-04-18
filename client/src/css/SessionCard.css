@@ -87,6 +87,31 @@
   margin-bottom: 14px;
 }
 
+.session-card-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--info-bg);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  font-size: 0.82rem;
+}
+
+.session-contact-label {
+  color: var(--text-secondary);
+}
+
+.session-contact-email {
+  color: var(--info);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.session-contact-email:hover {
+  text-decoration: underline;
+}
+
 .session-card-actions {
   display: flex;
   flex-wrap: wrap;

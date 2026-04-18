@@ -43,13 +43,16 @@ export default function SessionCard({
 
   const hasFeedback =
     session.feedback && Object.keys(session.feedback).length > 0;
-  const myFeedbackKey = isRequester ? "requesterFeedback" : "responderFeedback";
+  const myFeedbackKey = isRequester
+    ? "requesterFeedback"
+    : "responderFeedback";
   const canLeaveFeedback =
     session.status === "Completed" &&
     !session.feedback?.[myFeedbackKey]?.rating &&
     onFeedback;
 
-  const skillRequestedTitle = session.skillRequested?.title || "Unknown skill";
+  const skillRequestedTitle =
+    session.skillRequested?.title || "Unknown skill";
   const skillOfferedTitle = session.skillOffered?.title || "Unknown skill";
 
   return (
@@ -80,6 +83,19 @@ export default function SessionCard({
         {session.requester?.name || "Unknown"} &rarr;{" "}
         {session.responder?.name || "Unknown"}
       </div>
+      {["Accepted", "Completed"].includes(session.status) && (
+        <div className="session-card-contact">
+          <span className="session-contact-label">Contact your partner:</span>
+          <a
+            href={`mailto:${isRequester ? session.responder?.email : session.requester?.email}`}
+            className="session-contact-email"
+          >
+            {isRequester
+              ? session.responder?.email
+              : session.requester?.email}
+          </a>
+        </div>
+      )}
       {(canAccept ||
         canDecline ||
         canCancel ||
@@ -173,8 +189,8 @@ SessionCard.propTypes = {
     format: PropTypes.string,
     skillRequested: PropTypes.shape({ title: PropTypes.string }),
     skillOffered: PropTypes.shape({ title: PropTypes.string }),
-    requester: PropTypes.shape({ name: PropTypes.string }),
-    responder: PropTypes.shape({ name: PropTypes.string }),
+    requester: PropTypes.shape({ name: PropTypes.string, email: PropTypes.string }),
+    responder: PropTypes.shape({ name: PropTypes.string, email: PropTypes.string }),
     feedback: PropTypes.object,
   }).isRequired,
   onAccept: PropTypes.func,
