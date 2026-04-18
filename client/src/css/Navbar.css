@@ -16,6 +16,11 @@
   font-size: 1.1rem;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  border-radius: var(--radius-sm);
 }
 
 .navbar-brand span {

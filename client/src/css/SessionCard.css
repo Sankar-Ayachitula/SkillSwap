@@ -103,24 +103,27 @@
   transition: all 0.15s;
 }
 
+/* Accept = success semantic */
 .session-btn-accept {
   background: var(--success-bg);
   color: var(--success);
 }
 
 .session-btn-accept:hover {
-  background: #dcfce7;
+  background: var(--success-hover);
 }
 
+/* Decline = danger semantic */
 .session-btn-decline {
   background: var(--danger-bg);
   color: var(--danger);
 }
 
 .session-btn-decline:hover {
-  background: #fee2e2;
+  background: var(--danger-hover);
 }
 
+/* Cancel = neutral */
 .session-btn-cancel {
   background: var(--accent-subtle);
   color: var(--text-secondary);
@@ -130,6 +133,7 @@
   background: var(--border);
 }
 
+/* Complete = primary accent */
 .session-btn-complete {
   background: var(--accent);
   color: #fff;
@@ -139,22 +143,24 @@
   background: var(--accent-light);
 }
 
+/* Delete = danger semantic */
 .session-btn-delete {
   background: var(--danger-bg);
   color: var(--danger);
 }
 
 .session-btn-delete:hover {
-  background: #fee2e2;
+  background: var(--danger-hover);
 }
 
+/* Feedback = info semantic */
 .session-btn-feedback {
   background: var(--info-bg);
   color: var(--info);
 }
 
 .session-btn-feedback:hover {
-  background: #dbeafe;
+  background: var(--info-hover);
 }
 
 .session-card-feedback {
@@ -164,12 +170,7 @@
 }
 
 .session-card-feedback h4 {
-  font-size: 0.82rem;
-  font-weight: 600;
   margin-bottom: 6px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .session-feedback-item {

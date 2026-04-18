@@ -53,22 +53,21 @@ export default function MySkills() {
   };
 
   return (
-    <div className="my-skills-page">
+    <section className="my-skills-page" aria-labelledby="my-skills-heading">
       <div className="my-skills-header">
-        <h1>My skills</h1>
-        <button
-          className="my-skills-add-btn"
-          onClick={() => setShowForm(true)}
-        >
+        <h1 id="my-skills-heading">My skills</h1>
+        <button className="my-skills-add-btn" onClick={() => setShowForm(true)}>
           + Add skill
         </button>
       </div>
       {loading ? (
-        <div className="my-skills-empty">Loading...</div>
+        <div className="my-skills-empty" role="status" aria-label="Loading">
+          Loading...
+        </div>
       ) : skills.length === 0 ? (
         <div className="my-skills-empty">
-          You have not added any skills yet. Click &quot;+ Add skill&quot; to
-          get started.
+          You have not added any skills yet. Click &quot;+ Add skill&quot; above
+          to share what you can teach and start exchanging with others.
         </div>
       ) : (
         <div className="my-skills-grid">
@@ -90,6 +89,6 @@ export default function MySkills() {
           onSaved={handleSaved}
         />
       )}
-    </div>
+    </section>
   );
 }

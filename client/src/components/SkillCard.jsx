@@ -9,7 +9,7 @@ export default function SkillCard({
   onSwap,
 }) {
   return (
-    <div className="skill-card">
+    <article className="skill-card" aria-label={skill.title}>
       <div className="skill-card-header">
         <h3 className="skill-card-title">{skill.title}</h3>
         <span className="skill-card-category">{skill.category}</span>
@@ -30,7 +30,10 @@ export default function SkillCard({
             <strong>{skill.user.name}</strong>
           </span>
           {skill.user.overallRating > 0 && (
-            <span className="skill-card-rating">
+            <span
+              className="skill-card-rating"
+              aria-label={`Rating: ${skill.user.overallRating.toFixed(1)} out of 5`}
+            >
               {skill.user.overallRating.toFixed(1)} / 5
             </span>
           )}
@@ -39,7 +42,10 @@ export default function SkillCard({
       {(onEdit || onDelete) && (
         <div className="skill-card-actions">
           {onEdit && (
-            <button className="skill-card-btn-edit" onClick={() => onEdit(skill)}>
+            <button
+              className="skill-card-btn-edit"
+              onClick={() => onEdit(skill)}
+            >
               Edit
             </button>
           )}
@@ -60,7 +66,7 @@ export default function SkillCard({
           </button>
         </div>
       )}
-    </div>
+    </article>
   );
 }
 

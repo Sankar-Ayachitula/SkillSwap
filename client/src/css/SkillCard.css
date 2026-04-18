@@ -19,8 +19,6 @@
 }
 
 .skill-card-title {
-  font-size: 1.05rem;
-  font-weight: 600;
   letter-spacing: -0.01em;
 }
 
@@ -81,7 +79,7 @@
 
 .skill-card-rating {
   font-size: 0.8rem;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
 }
 
@@ -102,6 +100,7 @@
   transition: all 0.15s;
 }
 
+/* Edit = neutral */
 .skill-card-btn-edit {
   background: var(--accent-subtle);
   color: var(--text-primary);
@@ -111,15 +110,17 @@
   background: var(--border);
 }
 
+/* Delete = danger semantic */
 .skill-card-btn-delete {
   color: var(--danger);
   background: var(--danger-bg);
 }
 
 .skill-card-btn-delete:hover {
-  background: #fee2e2;
+  background: var(--danger-hover);
 }
 
+/* Swap = primary CTA */
 .skill-card-btn-swap {
   background: var(--accent);
   color: #fff;

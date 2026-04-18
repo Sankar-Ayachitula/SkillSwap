@@ -1,4 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
 import { api } from "../utils/api.js";
 
 export const AuthContext = createContext(null);
@@ -85,3 +87,7 @@ export default function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

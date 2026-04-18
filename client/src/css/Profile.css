@@ -1,13 +1,11 @@
 .profile-page {
   max-width: 600px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 32px 24px;
 }
 
 .profile-page h1 {
-  font-size: 1.3rem;
   margin-bottom: 24px;
-  letter-spacing: -0.02em;
 }
 
 .profile-card {
@@ -86,6 +84,7 @@
 .profile-form-field input:disabled {
   background: var(--accent-subtle);
   color: var(--text-tertiary);
+  cursor: not-allowed;
 }
 
 .profile-actions {
@@ -125,7 +124,7 @@
 }
 
 .profile-btn-delete:hover {
-  background: #fee2e2;
+  background: var(--danger-hover);
 }
 
 .profile-message {

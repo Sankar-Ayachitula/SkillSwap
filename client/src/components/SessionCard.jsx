@@ -31,37 +31,40 @@ export default function SessionCard({
 
   const statusClass = `session-status-${session.status.toLowerCase()}`;
 
-  const canAccept =
-    isResponder && session.status === "Pending" && onAccept;
-  const canDecline =
-    isResponder && session.status === "Pending" && onDecline;
+  const canAccept = isResponder && session.status === "Pending" && onAccept;
+  const canDecline = isResponder && session.status === "Pending" && onDecline;
   const canCancel =
-    (session.status === "Pending" || session.status === "Accepted") &&
-    onCancel;
-  const canComplete =
-    session.status === "Accepted" && onComplete;
+    (session.status === "Pending" || session.status === "Accepted") && onCancel;
+  const canComplete = session.status === "Accepted" && onComplete;
   const canDelete =
     isRequester &&
     ["Pending", "Declined", "Cancelled"].includes(session.status) &&
     onDelete;
 
-  const hasFeedback = session.feedback && Object.keys(session.feedback).length > 0;
-  const myFeedbackKey = isRequester
-    ? "requesterFeedback"
-    : "responderFeedback";
+  const hasFeedback =
+    session.feedback && Object.keys(session.feedback).length > 0;
+  const myFeedbackKey = isRequester ? "requesterFeedback" : "responderFeedback";
   const canLeaveFeedback =
     session.status === "Completed" &&
     !session.feedback?.[myFeedbackKey]?.rating &&
     onFeedback;
 
+  const skillRequestedTitle = session.skillRequested?.title || "Unknown skill";
+  const skillOfferedTitle = session.skillOffered?.title || "Unknown skill";
+
   return (
-    <div className="session-card">
+    <article
+      className="session-card"
+      aria-label={`Session: ${skillRequestedTitle} for ${skillOfferedTitle}`}
+    >
       <div className="session-card-top">
         <div className="session-card-skills">
           <div className="session-card-swap">
-            <strong>{session.skillRequested?.title || "Unknown skill"}</strong>
-            <span className="session-card-arrow">&harr;</span>
-            <strong>{session.skillOffered?.title || "Unknown skill"}</strong>
+            <strong>{skillRequestedTitle}</strong>
+            <span className="session-card-arrow" aria-hidden="true">
+              &harr;
+            </span>
+            <strong>{skillOfferedTitle}</strong>
           </div>
         </div>
         <span className={`session-card-status ${statusClass}`}>
@@ -142,7 +145,7 @@ export default function SessionCard({
               <strong>{session.requester?.name}:</strong>{" "}
               {session.feedback.requesterFeedback.rating}/5
               {session.feedback.requesterFeedback.comment &&
-                ` - ${session.feedback.requesterFeedback.comment}`}
+                ` \u2014 ${session.feedback.requesterFeedback.comment}`}
             </div>
           )}
           {session.feedback.responderFeedback?.rating && (
@@ -150,12 +153,12 @@ export default function SessionCard({
               <strong>{session.responder?.name}:</strong>{" "}
               {session.feedback.responderFeedback.rating}/5
               {session.feedback.responderFeedback.comment &&
-                ` - ${session.feedback.responderFeedback.comment}`}
+                ` \u2014 ${session.feedback.responderFeedback.comment}`}
             </div>
           )}
         </div>
       )}
-    </div>
+    </article>
   );
 }
 

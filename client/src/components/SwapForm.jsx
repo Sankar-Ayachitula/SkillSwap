@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { api } from "../utils/api.js";
+import Modal from "./Modal.jsx";
 import "../css/SwapForm.css";
 
 const FORMATS = ["In-Person", "Video", "Async"];
@@ -49,93 +50,96 @@ export default function SwapForm({ targetSkill, onClose, onCreated }) {
   };
 
   return (
-    <div className="swap-form-overlay" onClick={onClose}>
-      <div className="swap-form" onClick={(e) => e.stopPropagation()}>
-        <h2>Propose a swap</h2>
-        <p className="swap-form-target">
-          Requesting: <strong>{targetSkill.title}</strong>
-          {targetSkill.user && <> from {targetSkill.user.name}</>}
+    <Modal title="Propose a swap" onClose={onClose}>
+      <h2>Propose a swap</h2>
+      <p className="swap-form-target">
+        Requesting: <strong>{targetSkill.title}</strong>
+        {targetSkill.user && <> from {targetSkill.user.name}</>}
+      </p>
+      {error && (
+        <div className="swap-form-error" role="alert">
+          {error}
+        </div>
+      )}
+      {mySkills.length === 0 ? (
+        <p className="swap-form-empty">
+          You need to add at least one skill before proposing a swap.
         </p>
-        {error && <div className="swap-form-error">{error}</div>}
-        {mySkills.length === 0 ? (
-          <p className="swap-form-empty">
-            You need to add at least one skill before proposing a swap.
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <div className="swap-form-field">
-              <label htmlFor="sw-offer">Skill you offer in return</label>
-              <select
-                id="sw-offer"
-                value={skillOfferedId}
-                onChange={(e) => setSkillOfferedId(e.target.value)}
-              >
-                {mySkills.map((s) => (
-                  <option key={s._id} value={s._id}>
-                    {s.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="swap-form-field">
-              <label htmlFor="sw-date">Proposed date and time</label>
-              <input
-                id="sw-date"
-                type="datetime-local"
-                value={scheduledDate}
-                onChange={(e) => setScheduledDate(e.target.value)}
-                required
-              />
-            </div>
-            <div className="swap-form-field">
-              <label htmlFor="sw-dur">Duration (hours)</label>
-              <select
-                id="sw-dur"
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-              >
-                <option value="0.5">0.5</option>
-                <option value="1">1</option>
-                <option value="1.5">1.5</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-            </div>
-            <div className="swap-form-field">
-              <label htmlFor="sw-fmt">Format</label>
-              <select
-                id="sw-fmt"
-                value={format}
-                onChange={(e) => setFormat(e.target.value)}
-              >
-                {FORMATS.map((f) => (
-                  <option key={f} value={f}>
-                    {f}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="swap-form-actions">
-              <button
-                type="button"
-                className="swap-form-btn-cancel"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="swap-form-btn-send"
-                disabled={sending}
-              >
-                {sending ? "Sending..." : "Send proposal"}
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
-    </div>
+      ) : (
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="swap-form-field">
+            <label htmlFor="sw-offer">Skill you offer in return</label>
+            <select
+              id="sw-offer"
+              value={skillOfferedId}
+              onChange={(e) => setSkillOfferedId(e.target.value)}
+            >
+              {mySkills.map((s) => (
+                <option key={s._id} value={s._id}>
+                  {s.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="swap-form-field">
+            <label htmlFor="sw-date">Proposed date and time</label>
+            <input
+              id="sw-date"
+              type="datetime-local"
+              value={scheduledDate}
+              onChange={(e) => setScheduledDate(e.target.value)}
+              required
+              aria-required="true"
+            />
+          </div>
+          <div className="swap-form-field">
+            <label htmlFor="sw-dur">Duration (hours)</label>
+            <select
+              id="sw-dur"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            >
+              <option value="0.5">0.5</option>
+              <option value="1">1</option>
+              <option value="1.5">1.5</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div className="swap-form-field">
+            <label htmlFor="sw-fmt">Format</label>
+            <select
+              id="sw-fmt"
+              value={format}
+              onChange={(e) => setFormat(e.target.value)}
+            >
+              {FORMATS.map((f) => (
+                <option key={f} value={f}>
+                  {f}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="swap-form-actions">
+            <button
+              type="button"
+              className="swap-form-btn-cancel"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="swap-form-btn-send"
+              disabled={sending}
+            >
+              {sending ? "Sending..." : "Send proposal"}
+            </button>
+          </div>
+        </form>
+      )}
+    </Modal>
   );
 }
 

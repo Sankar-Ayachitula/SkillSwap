@@ -14,6 +14,8 @@ export default function App() {
   if (loading) {
     return (
       <div
+        role="status"
+        aria-label="Loading application"
         style={{
           display: "flex",
           alignItems: "center",
@@ -51,7 +53,19 @@ export default function App() {
   return (
     <>
       <Navbar currentPage={page} onNavigate={setPage} />
-      <main>{content}</main>
+      <main id="main-content">{content}</main>
+      <footer
+        style={{
+          textAlign: "center",
+          padding: "24px",
+          fontSize: "0.8rem",
+          color: "var(--text-tertiary)",
+          borderTop: "1px solid var(--border)",
+          marginTop: "40px",
+        }}
+      >
+        SkillSwap &mdash; Teach what you know, learn what you need.
+      </footer>
     </>
   );
 }

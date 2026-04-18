@@ -55,16 +55,35 @@ export default function BrowseSkills({ onNavigate }) {
   );
 
   return (
-    <div className="browse-page">
-      <h1>Browse skills</h1>
-      <div className="browse-filters">
+    <section className="browse-page" aria-labelledby="browse-heading">
+      <h1 id="browse-heading">Browse skills</h1>
+
+      <div className="browse-how-it-works">
+        <p>
+          Find a skill you want to learn, then click{" "}
+          <strong>Propose swap</strong> to offer one of your skills in exchange.
+        </p>
+      </div>
+
+      <div className="browse-filters" role="search" aria-label="Filter skills">
+        <label htmlFor="browse-search" className="sr-only">
+          Search skills
+        </label>
         <input
-          type="text"
+          id="browse-search"
+          type="search"
           placeholder="Search skills..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <label htmlFor="browse-category" className="sr-only">
+          Filter by category
+        </label>
+        <select
+          id="browse-category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="">All categories</option>
           {CATEGORIES.filter(Boolean).map((c) => (
             <option key={c} value={c}>
@@ -73,8 +92,11 @@ export default function BrowseSkills({ onNavigate }) {
           ))}
         </select>
       </div>
+
       {loading ? (
-        <div className="browse-loading">Loading skills...</div>
+        <div className="browse-loading" role="status" aria-label="Loading">
+          Loading skills...
+        </div>
       ) : otherSkills.length === 0 ? (
         <div className="browse-empty">
           No skills found. Try adjusting your filters.
@@ -91,6 +113,7 @@ export default function BrowseSkills({ onNavigate }) {
           ))}
         </div>
       )}
+
       {swapTarget && (
         <SwapForm
           targetSkill={swapTarget}
@@ -101,7 +124,7 @@ export default function BrowseSkills({ onNavigate }) {
           }}
         />
       )}
-    </div>
+    </section>
   );
 }
 

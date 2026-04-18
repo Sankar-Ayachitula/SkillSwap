@@ -1,13 +1,22 @@
 .browse-page {
   max-width: 960px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 32px 24px;
 }
 
 .browse-page h1 {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
-  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.browse-how-it-works {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.browse-how-it-works strong {
+  color: var(--text-primary);
 }
 
 .browse-filters {

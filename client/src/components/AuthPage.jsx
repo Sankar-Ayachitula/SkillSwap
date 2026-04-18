@@ -36,7 +36,7 @@ export default function AuthPage({ onSuccess }) {
   };
 
   return (
-    <div className="auth-page">
+    <section className="auth-page" aria-label="Authentication">
       <div className="auth-card">
         <h1>{isLogin ? "Welcome back" : "Create account"}</h1>
         <p>
@@ -44,8 +44,14 @@ export default function AuthPage({ onSuccess }) {
             ? "Sign in to continue to SkillSwap."
             : "Join SkillSwap to start exchanging skills."}
         </p>
-        {error && <div className="auth-error">{error}</div>}
-        <form onSubmit={handleSubmit}>
+        <div aria-live="polite" aria-atomic="true">
+          {error && (
+            <div className="auth-error" role="alert">
+              {error}
+            </div>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} noValidate>
           {!isLogin && (
             <div className="auth-field">
               <label htmlFor="auth-name">Name</label>
@@ -56,6 +62,8 @@ export default function AuthPage({ onSuccess }) {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
                 required
+                aria-required="true"
+                autoComplete="name"
               />
             </div>
           )}
@@ -68,6 +76,8 @@ export default function AuthPage({ onSuccess }) {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
+              aria-required="true"
+              autoComplete="email"
             />
           </div>
           <div className="auth-field">
@@ -79,6 +89,8 @@ export default function AuthPage({ onSuccess }) {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 6 characters"
               required
+              aria-required="true"
+              autoComplete={isLogin ? "current-password" : "new-password"}
             />
           </div>
           <button className="auth-submit" type="submit" disabled={submitting}>
@@ -91,12 +103,12 @@ export default function AuthPage({ onSuccess }) {
         </form>
         <div className="auth-switch">
           {isLogin ? "No account yet? " : "Already have an account? "}
-          <button onClick={toggleMode}>
+          <button type="button" onClick={toggleMode}>
             {isLogin ? "Register" : "Sign in"}
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

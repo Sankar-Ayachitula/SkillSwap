@@ -63,9 +63,9 @@ export default function Profile({ onNavigate }) {
   if (!user) return null;
 
   return (
-    <div className="profile-page">
-      <h1>Profile</h1>
-      <div className="profile-stats">
+    <section className="profile-page" aria-labelledby="profile-heading">
+      <h1 id="profile-heading">Profile</h1>
+      <div className="profile-stats" role="region" aria-label="Your statistics">
         <div className="profile-stat">
           <div className="profile-stat-value">
             {user.overallRating > 0 ? user.overallRating.toFixed(1) : "--"}
@@ -90,12 +90,17 @@ export default function Profile({ onNavigate }) {
         )}
       </div>
       <div className="profile-card">
-        {message.text && (
-          <div className={`profile-message profile-message-${message.type}`}>
-            {message.text}
-          </div>
-        )}
-        <form onSubmit={handleSave}>
+        <div aria-live="polite" aria-atomic="true">
+          {message.text && (
+            <div
+              className={`profile-message profile-message-${message.type}`}
+              role={message.type === "error" ? "alert" : "status"}
+            >
+              {message.text}
+            </div>
+          )}
+        </div>
+        <form onSubmit={handleSave} noValidate>
           <div className="profile-form-field">
             <label htmlFor="prof-email">Email</label>
             <input
@@ -103,7 +108,11 @@ export default function Profile({ onNavigate }) {
               type="email"
               value={user.email}
               disabled
+              aria-describedby="email-note"
             />
+            <span id="email-note" className="sr-only">
+              Email cannot be changed
+            </span>
           </div>
           <div className="profile-form-field">
             <label htmlFor="prof-name">Name</label>
@@ -112,6 +121,7 @@ export default function Profile({ onNavigate }) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              aria-required="true"
             />
           </div>
           <div className="profile-form-field">
@@ -141,7 +151,7 @@ export default function Profile({ onNavigate }) {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 }
 

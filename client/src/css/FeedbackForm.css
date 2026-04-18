@@ -1,33 +1,10 @@
-.feedback-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  padding: 24px;
-}
-
-.feedback-form {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-.feedback-form h2 {
-  font-size: 1.15rem;
-  margin-bottom: 20px;
-}
-
 .feedback-field {
   margin-bottom: 14px;
+  border: none;
+  padding: 0;
 }
 
+.feedback-label,
 .feedback-field label {
   display: block;
   font-size: 0.8rem;
@@ -44,11 +21,14 @@
 }
 
 .feedback-star {
-  font-size: 1.5rem;
   color: var(--border);
   transition: color 0.1s;
-  padding: 0;
+  padding: 2px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
 }
 
 .feedback-star.active {
@@ -95,9 +75,18 @@
   color: var(--text-primary);
 }
 
+.feedback-btn-cancel:hover {
+  background: var(--border);
+}
+
 .feedback-btn-submit {
-  background: var(--accent);
-  color: #fff;
+  background: var(--success-bg);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.feedback-btn-submit:hover {
+  background: var(--success-hover);
 }
 
 .feedback-btn-submit:disabled {

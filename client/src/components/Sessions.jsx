@@ -60,10 +60,14 @@ export default function Sessions() {
   };
 
   return (
-    <div className="sessions-page">
-      <h1>Sessions</h1>
+    <section className="sessions-page" aria-labelledby="sessions-heading">
+      <h1 id="sessions-heading">Sessions</h1>
       <div className="sessions-filters">
+        <label htmlFor="sessions-status" className="sr-only">
+          Filter by status
+        </label>
         <select
+          id="sessions-status"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -74,7 +78,11 @@ export default function Sessions() {
           <option value="Declined">Declined</option>
           <option value="Cancelled">Cancelled</option>
         </select>
+        <label htmlFor="sessions-role" className="sr-only">
+          Filter by role
+        </label>
         <select
+          id="sessions-role"
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
         >
@@ -84,7 +92,9 @@ export default function Sessions() {
         </select>
       </div>
       {loading ? (
-        <div className="sessions-loading">Loading sessions...</div>
+        <div className="sessions-loading" role="status" aria-label="Loading">
+          Loading sessions...
+        </div>
       ) : sessions.length === 0 ? (
         <div className="sessions-empty">
           No sessions found. Browse skills and propose a swap to get started.
@@ -115,6 +125,6 @@ export default function Sessions() {
           }}
         />
       )}
-    </div>
+    </section>
   );
 }
