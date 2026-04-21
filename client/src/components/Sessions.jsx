@@ -34,7 +34,7 @@ export default function Sessions() {
   const handleStatus = async (id, status) => {
     try {
       await api.put(`/api/sessions/${id}/status`, { status });
-      fetchSessions();
+      await fetchSessions();
     } catch {
       /* silent */
     }
@@ -43,7 +43,7 @@ export default function Sessions() {
   const handleComplete = async (id) => {
     try {
       await api.put(`/api/sessions/${id}/complete`);
-      fetchSessions();
+      await fetchSessions();
     } catch {
       /* silent */
     }
@@ -53,7 +53,7 @@ export default function Sessions() {
     if (!window.confirm("Delete this session?")) return;
     try {
       await api.delete(`/api/sessions/${id}`);
-      fetchSessions();
+      await fetchSessions();
     } catch {
       /* silent */
     }

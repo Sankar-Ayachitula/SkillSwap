@@ -87,3 +87,13 @@
   font-size: 0.9rem;
   padding: 16px 0;
 }
+
+.swap-form-date-confirm {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: var(--success-bg);
+  color: var(--success);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}

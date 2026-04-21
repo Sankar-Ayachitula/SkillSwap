@@ -91,6 +91,21 @@ export default function SwapForm({ targetSkill, onClose, onCreated }) {
               required
               aria-required="true"
             />
+            {scheduledDate && (
+              <div className="swap-form-date-confirm" aria-live="polite">
+                Scheduled for:{" "}
+                <strong>
+                  {new Date(scheduledDate).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                </strong>
+              </div>
+            )}
           </div>
           <div className="swap-form-field">
             <label htmlFor="sw-dur">Duration (hours)</label>
