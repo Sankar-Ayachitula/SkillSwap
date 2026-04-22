@@ -28,6 +28,18 @@ Course Link: [CS 5610 Web Development](https://khoury.northeastern.edu)
 
 ---
 
+## Usability Study Improvements
+
+Based on feedback from usability studies conducted with 3 participants, the following issues were identified and addressed:
+
+| # | Issue | Priority | Status | Change Implemented |
+|---|-------|----------|--------|--------------------|
+| 1 | Session list does not refresh after accepting/declining | Must | Implemented | Added proper `await` on status update calls before re-fetching session data |
+| 2 | No notification indicator for pending session proposals | Should | Implemented | Added pending count badge on Sessions tab in the Navbar with a new API endpoint |
+| 3 | Date picker lacks confirmation when proposing a swap | Could | Implemented | Added a green confirmation banner showing the formatted date/time after selection |
+
+The full usability study report with detailed notes, Likert scale results, and video recordings is available [here](https://drive.google.com/file/d/15mnFJkflglg70p5YQCLpmO4sTNYqqNUx/view?usp=sharing).
+
 ## Project Objective
 
 The objective of this project is to design and implement a full-stack peer-to-peer skill barter platform where students exchange skills instead of paying for lessons. Post a skill you can teach, browse what others offer, propose a swap, and meet up. You teach me guitar, I teach you Python.
