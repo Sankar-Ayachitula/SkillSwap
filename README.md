@@ -58,6 +58,14 @@ View the design document for this project: [Design_document.pdf](https://drive.g
 
 ---
 
+## Accessibility
+
+Tested with Lighthouse accessibility audit - no critical issues.
+
+![Lighthouse Accessibility Results](https://raw.githubusercontent.com/Sankar-Ayachitula/SkillSwap/refs/heads/master/client/src/assets/accessibility-testing-lighthouse.png)
+
+
+
 ## Tech Stack
 
 **Frontend**
